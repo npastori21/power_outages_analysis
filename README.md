@@ -21,7 +21,6 @@ I was primarily focused on measuring the severity of outages by outage duration.
 ## Univariate Analysis
 This bar chart shows the number of outages by climate region. The Northeast, and South have the most outages which could be due to more extreme weather conditions that knock out grids or cause outages due to increased demand for climate-controlling appliances.
 
-
 ## Bivariate Analysis
 Below is a heatmap showing the average outage duration by state. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, states like Florida and Louisiana's outages average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms.
 
