@@ -41,3 +41,20 @@ Below is a heatmap showing the average outage duration by states with at least o
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.
 
 <iframe src="plots/seasons_pivot.html" width="800" height="225"></iframe>
+
+# Framing a Prediction Problem
+To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
+
+## Data Overview
+Below is a preview of the columns I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
+
+| DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
+|----------------|--------------------|----------------|-------------|--------------------|--------|---------------------|----------|
+| 250            | 250000             | 1.2            | 5970339     | East North Central | 7      | severe weather      | Summer   |
+| 75             | 300000             | 0.2            | 5607498     | East North Central | 6      | severe weather      | Summer   |
+| 20             | 5941               | 0.6            | 5599486     | East North Central | 3      | intentional attack  | Spring   |
+| 100            | 64000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
+| 300            | 63000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
+
+## Baseline Model
+For my baseline model, I trained a Multiple Linear Regression model on the columns above. I used a one hot encoder to transform the `CLIMATE.REGION`, `MONTH`, `CAUSE.CATEGORY`, and `SEASONS` categorical columns. I did not modify any of the quantitative columns.
