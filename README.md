@@ -40,13 +40,7 @@ Below is a heatmap showing the average outage duration by states with at least o
 ## Interesting Aggregate
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.
 
-| ('OUTAGE.DURATION', 'Central') | ('OUTAGE.DURATION', 'East North Central') | ('OUTAGE.DURATION', 'Northeast') | ('OUTAGE.DURATION', 'Northwest') | ('OUTAGE.DURATION', 'South') | ('OUTAGE.DURATION', 'Southeast') | ('OUTAGE.DURATION', 'Southwest') | ('OUTAGE.DURATION', 'West') | ('OUTAGE.DURATION', 'West North Central') |
-|------------:|------------:|------------:|------------:|------------:|------------:|------------:|------------:|------------:|
-|                         67.5606 |                                     65.772 |                          93.1744 |                          40.4548 |                      106.331 |                          62.1304 |                          11.6857 |                      27.0896 |                                  1.39167 |
-|                         44.4734 |                                    147.403 |                          39.8406 |                          13.7667 |                       27.458 |                          33.9304 |                          12.9403 |                      30.3234 |                                  0.933333 |
-|                         34.1657 |                                     59.9082 |                          56.8113 |                          17.3439 |                       36.2646 |                          36.6167 |                          83.6962 |                      12.0482 |                                  1.42143 |
-|                         73.2139 |                                    115.79  |                          74.2989 |                          43.8083 |                       68.1231 |                          24.9246 |                           9.48406 |                      46.0239 |                                 86       |
-
+<iframe src="plots/seasons_pivot.html" width="800" height="225"></iframe>
 
 # Framing a Prediction Problem
 To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
@@ -55,7 +49,7 @@ To further investigate the connection of outage statistics and outage duration, 
 Below is a preview of the columns I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
 
 | DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
-|----------------|--------------------|----------------|-------------|--------------------|--------|---------------------|----------|
+|--------------|------------------|--------------|-----------|------------------|------|-------------------|--------|
 | 250            | 250000             | 1.2            | 5970339     | East North Central | 7      | severe weather      | Summer   |
 | 75             | 300000             | 0.2            | 5607498     | East North Central | 6      | severe weather      | Summer   |
 | 20             | 5941               | 0.6            | 5599486     | East North Central | 3      | intentional attack  | Spring   |
