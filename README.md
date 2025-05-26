@@ -40,7 +40,13 @@ Below is a heatmap showing the average outage duration by states with at least o
 ## Interesting Aggregate
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.
 
-<iframe src="plots/seasons_pivot.html" width="800" height="225"></iframe>
+| ('OUTAGE.DURATION', 'Central') | ('OUTAGE.DURATION', 'East North Central') | ('OUTAGE.DURATION', 'Northeast') | ('OUTAGE.DURATION', 'Northwest') | ('OUTAGE.DURATION', 'South') | ('OUTAGE.DURATION', 'Southeast') | ('OUTAGE.DURATION', 'Southwest') | ('OUTAGE.DURATION', 'West') | ('OUTAGE.DURATION', 'West North Central') |
+|-------------------------------:|-------------------------------------------:|----------------------------------:|----------------------------------:|------------------------------:|----------------------------------:|----------------------------------:|-----------------------------:|-------------------------------------------:|
+|                         67.5606 |                                     65.772 |                          93.1744 |                          40.4548 |                      106.331 |                          62.1304 |                          11.6857 |                      27.0896 |                                  1.39167 |
+|                         44.4734 |                                    147.403 |                          39.8406 |                          13.7667 |                       27.458 |                          33.9304 |                          12.9403 |                      30.3234 |                                  0.933333 |
+|                         34.1657 |                                     59.9082 |                          56.8113 |                          17.3439 |                       36.2646 |                          36.6167 |                          83.6962 |                      12.0482 |                                  1.42143 |
+|                         73.2139 |                                    115.79  |                          74.2989 |                          43.8083 |                       68.1231 |                          24.9246 |                           9.48406 |                      46.0239 |                                 86       |
+
 
 # Framing a Prediction Problem
 To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
