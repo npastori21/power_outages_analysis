@@ -16,13 +16,26 @@ In this analysis, I evaluate a collection of power outages from 2000-2016 across
 # Data Cleaning and Exploratory Analysis
 
 ## Imputation of Values
-I was primarily focused on measuring the severity of outages by outage duration. Of the 1534 original datapoints, 244 rows of the dataframe either had `OUTAGE.DURATION` values that were or were less than 5 minutes. I chose to drop the rows that fit this criteria since outages under 5 minutes are trivial and I did not want to use imputed values for my regression model later in the analysis. This leaves us with 1281 datapoints to use for the initial analysis.
+I was primarily focused on measuring the severity of outages by outage duration. Of the 1534 original datapoints, 244 rows of the dataframe either had `OUTAGE.DURATION` values that were missing or were less than 5 minutes. I chose to drop the rows that fit this criteria since outages under 5 minutes are trivial and I did not want to use imputed values for my regression model later in the analysis. This leaves us with 1281 datapoints to use for the initial analysis.
 
 ## Univariate Analysis
 This bar chart shows the number of outages by climate region. The Northeast, and South have the most outages which could be due to more extreme weather conditions that knock out grids or cause outages due to increased demand for climate-controlling appliances.
+ <iframe
+ src="plots/region_outages.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
 
 ## Bivariate Analysis
 Below is a heatmap showing the average outage duration by states with at least one outage. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, states like Florida and Louisiana's outages average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms.
+
+ <iframe
+ src="plots/states.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
 
 ## Interesting Aggregate
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.
