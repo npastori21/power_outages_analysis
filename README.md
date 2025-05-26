@@ -27,5 +27,5 @@ Below is a heatmap showing the average outage duration by states with at least o
 ## Interesting Aggregate
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, norhtern regions like the Northeast and Northwest have higher outage durations during colder seasons like fall and winter while southern climate regions like the Sotuh, Southeast, and Southwest have higher outage durations during spring and summer.
 
-<iframe src="seasons_pivot.html" width="800" height="400" frameborder="0">
+<iframe src="/plots/seasons_pivot.html" width="800" height="400" frameborder="0">
 </iframe>
