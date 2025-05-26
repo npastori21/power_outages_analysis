@@ -32,7 +32,7 @@ Below is a heatmap showing the average outage duration by states with at least o
 
  <iframe
  src="plots/states.html"
- width="800"
+ width="1000"
  height="600"
  frameborder="0"
  ></iframe>
