@@ -49,7 +49,7 @@ To further investigate the connection of outage statistics and outage duration, 
 Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
 
 | DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
-|--------------|------------------|--------------|-----------|------------------|------|-------------------|--------|
+|------------|----------------|------------|---------|----------------|----|-----------------|------|
 | 250            | 250000             | 1.2            | 5970339     | East North Central | 7      | severe weather      | Summer   |
 | 75             | 300000             | 0.2            | 5607498     | East North Central | 6      | severe weather      | Summer   |
 | 20             | 5941               | 0.6            | 5599486     | East North Central | 3      | intentional attack  | Spring   |
@@ -68,7 +68,7 @@ I initially trained a linear regression model using all the columns of the datas
 To make the final model more robust, I generated the following features.
 
 | Feature Name | Description |
-| :------- | :---------- |
+| :-------------------------- | :------------------------------|
 | `Sales Urban` | `(TOTAL.SALES * POPPCT_URBAN)/100`. Weight the consumption of the state by its urban population percentage. States with high total consumption and urban population percentage should expect longer outages. Used a degree 3 `PolynomialFeatures` transformer to extrapolate different values and a `QuantileTransformer` to normalize the features to help my final model's performance|
 | `Scaled Anomaly Level` | Used a `StandardScaler` to scale the `ANOMALY.LEVEL` column to have a mean of 0 and a standard deviation of 1 to help the final model's performance. |
 | `Polynomial Urban Population Density` | Used a degree 2 `PolynomialFeatures` transformer and `QuantileTransformer` on the `POPDEN_URBAN` column |
