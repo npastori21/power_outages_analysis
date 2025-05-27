@@ -45,8 +45,8 @@ This pivot table shows the relationship between average outage duration by seaso
 # Framing a Prediction Problem
 To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
 
-## Data Overview
-Below is a preview of the columns I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
+## Original Attempt
+Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
 
 | DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
 |--------------|------------------|--------------|-----------|------------------|------|-------------------|--------|
@@ -56,5 +56,27 @@ Below is a preview of the columns I used to train my regression models. Due to t
 | 100            | 64000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
 | 300            | 63000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
 
-## Baseline Model
-For my baseline model, I trained a Multiple Linear Regression model on the columns above. I used a one hot encoder to transform the `CLIMATE.REGION`, `MONTH`, `CAUSE.CATEGORY`, and `SEASONS` categorical columns. I did not modify any of the quantitative columns.
+I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regressor models on this data and used 5-fold cross validation to select the best one. The best model was the Random Forest Regressor with a test mean absolute error(MAE) of 45.96 hours and an R^2^ score of -4.46. This means that my model was around 46 hours off for outage duration and does not generalize to unseen data well at all. Given that most outages were less than 100 hours, my model is not fit to predict outage duration at all.
+
+## Final Attempt
+I tried something different with this attempt. I swapped the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` columns for the `POPPCT_URBAN` and `POPDEN_URBAN` columns. Not only were there more rows of data to work with leading to better training, but also introduces a different angle into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have higher outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log~2~. This transformation helps normalize the right-skewed outage duration data. A preview of the input parameter data is below.
+
+### Baseline Model
+I initially trained a linear regression model using all the columns of the dataset. I transformed the categorical variables using a `OneHotEncoder`. The baseline model showed significant performance increases with the new parameter columns and transformation of the prediction data. The test MAE of the model was 1.66 log~2~ hours and the R^2^ Score was 0.32. To get the predicted outage duration in hours, we would apply the function 2^log hours prediction^. For instance, the test MAE in hours was around 3.16 hours, significantly better than before.
+
+### Feature Generation
+To make the final model more robust, I generated the following features.
+| Feature Name | Description |
+| :------- | :---------- |
+| `Sales Urban` | `(TOTAL.SALES * POPPCT_URBAN)/100`. Weight the consumption of the state by its urban population percentage. States with high total consumption and urban population percentage should expect longer outages. Used a degree 3 `PolynomialFeatures` transformer to extrapolate different values and a `QuantileTransformer` to normalize the features to help my final model's performance|
+| `Scaled Anomaly Level` | Used a `StandardScaler` to scale the `ANOMALY.LEVEL` column to have a mean of 0 and a standard deviation of 1 to help the final model's performance. |
+| `Polynomial Urban Population Density` | Used a degree 2 `PolynomialFeatures` transformer and `QuantileTransformer` on the `POPDEN_URBAN` column |
+
+### Final Model
+The final model I chose was a Random Forest Regressor whose parameters were tuned using 5-fold cross validation by a `GridSearchCV` instance. The best parameters for the search are listed below.
+```
+{'randomforestregressor__max_depth': 10,
+ 'randomforestregressor__min_samples_split': 8,
+ 'randomforestregressor__n_estimators': 70}
+```
+With a test MAE of 1.57 log~2~ hours and a R^2^ Score of 0.39, the final model predicts log~2~ outage duration better and generalizes to unseen data better than the baseline model. While the test R^2^ Score is still less than 0.5, it is interesting to note that the training R^2^ score was 0.69, meaning the final model generalized quite well to the variance of the training data. Given that there were only 948 samples out of the total 1265 available for training(around 75% of the total data), I believe a larger training dataset would improve the model's validation R^2^ Score significantly.
