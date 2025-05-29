@@ -1,4 +1,4 @@
 title: "Power Outage Analysis: Exploring the Causes of Severe Outages"
-remote_theme: pages-themes/minimae@v0.2.0
+remote_theme: pages-themes/minima@v0.2.0
 plugins:
 - jekyll-remote-theme
