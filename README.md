@@ -46,8 +46,11 @@ This pivot table shows the relationship between average outage duration by seaso
 To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
 
 ## Evaluation Metrics
-**Mean Absolute Error**: The average absolute difference between true outage duration and predicted outage duration. Ensures over and underestimation of outage duration is treated equally when evaluating. The units are hours, making it an easy metric to evaluate.
-**R-Squared Score**: The proportion of variance in outage duration that the regression model explains. Essentially this tells us how well our model will fit to data with natural variance. The best score is 1.0, but it can be negative if the model is worse.
+
+| Metric | Definition |
+| :-------| :----------------|
+| **Mean Absolute Error** | The average absolute difference between true outage duration and predicted outage duration. Ensures over and underestimation of outage duration is treated equally when evaluating. The units are hours, making it an easy metric to evaluate. |
+| **R-Squared Score** | The proportion of variance in outage duration that the regression model explains. Essentially this tells us how well our model will fit to data with natural variance. The best score is 1.0, but it can be negative if the model is worse. |
 
 ## Original Attempt
 Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
@@ -81,9 +84,9 @@ To make the final model more robust, I generated the following features.
 
 | Feature Name | Description |
 | :-------------------------- | :------------------------------|
-| `Sales Urban` | `(TOTAL.SALES * POPPCT_URBAN)/100`. Weight the consumption of the state by its urban population percentage. States with high total consumption and urban population percentage should expect longer outages. Used a degree 3 `PolynomialFeatures` transformer to extrapolate different values and a `QuantileTransformer` to normalize the features to help my final model's performance|
+| `Sales Urban` | `(TOTAL.SALES * POPPCT_URBAN)/100`. Weight the consumption of the state by its urban population percentage. States with high total consumption and urban population percentage should expect longer outages. Used a degree 3 `PolynomialFeatures` transformer to extrapolate different values and a `QuantileTransformer` to normalize the features to help my final model's performance.|
 | `Scaled Anomaly Level` | Used a `StandardScaler` to scale the `ANOMALY.LEVEL` column to have a mean of 0 and a standard deviation of 1 to help the final model's performance. |
-| `Polynomial Urban Population Density` | Used a degree 2 `PolynomialFeatures` transformer and `QuantileTransformer` on the `POPDEN_URBAN` column |
+| `Polynomial Urban Population Density` | Used a degree 2 `PolynomialFeatures` transformer and `QuantileTransformer` on the `POPDEN_URBAN` column. |
 
 ### Final Model
 The final model I chose was a Random Forest Regressor whose parameters were tuned using 5-fold cross validation by a `GridSearchCV` instance. The best parameters for the search are listed below.
