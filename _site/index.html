@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introduction | Power Outages Analysis: Causes of Outage Duration</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Introduction" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Power Outages Analysis: Causes of Outage Duration" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introduction" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","headline":"Introduction","name":"Power Outages Analysis: Causes of Outage Duration","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=46d18cd8444e9baf3d16ccea40969158c0beba83">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#353535">
+<meta name="msapplication-navbutton-color" content="#353535">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <ul>
+            <li class="fork"><a href="https://github.com/npastori21/power_outages_analysis">View On GitHub</a></li>
+            
+          </ul>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Power Outages Analysis: Causes of Outage Duration</h1>
+          <p></p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/npastori21">npastori21</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a></span>
+        </div>
+
+        <h1 id="introduction">Introduction</h1>
+<p>In this analysis, I evaluate a collection of power outages from 2000-2016 across the U.S. to determine what factors cause severe outages. While there are many questions to ask such as “Do socioeconomic factors affect the severity of outages?” or “Does the power consumption in the state affect outage severity?”, I decided to answer the question “Is the severity of power outages affected by location?”. Below are the relevant columns I chose for my analysis.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Variable Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">OUTAGE.DURATION</code></td>
+      <td style="text-align: left">Duration of outage in hours</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DEMAND.LOSS.MW</code></td>
+      <td style="text-align: left">The total or peak demand lost during an outage</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CUSTOMERS.AFFECTED</code></td>
+      <td style="text-align: left">Number of customers affected by the power outage event</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ANOMALY.LEVEL</code></td>
+      <td style="text-align: left">This represents the oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">TOTAL.SALES</code></td>
+      <td style="text-align: left">Total electricity consumption in the U.S. state (megawatt-hour)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">POPPCT_URBAN</code></td>
+      <td style="text-align: left">Percentage of the total population of the U.S. state represented by the urban population (in %)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">POPDEN_URBAN</code></td>
+      <td style="text-align: left">Population density of the urban areas (persons per square mile)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">POSTAL.CODE</code></td>
+      <td style="text-align: left">Postal Code of the U.S. states</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CLIMATE.REGION</code></td>
+      <td style="text-align: left">U.S. Climate regions as specified by National Centers for Environmental Information</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CAUSE.CATEGORY</code></td>
+      <td style="text-align: left">Categories of all the events causing the major power outages</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">MONTH</code></td>
+      <td style="text-align: left">Indicates the month when the outage event occurred</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="data-cleaning-and-exploratory-analysis">Data Cleaning and Exploratory Analysis</h1>
+
+<h2 id="imputation-of-values">Imputation of Values</h2>
+<p>I was primarily focused on measuring the severity of outages by outage duration. Of the 1534 original datapoints, 244 rows of the dataframe either had <code class="language-plaintext highlighter-rouge">OUTAGE.DURATION</code> values that were missing or were less than 5 minutes. I chose to drop the rows that fit this criteria since outages under 5 minutes are trivial and I did not want to use imputed values for my regression model later in the analysis. This leaves us with 1281 datapoints to use for the initial analysis.</p>
+
+<h2 id="univariate-analysis">Univariate Analysis</h2>
+<p>This bar chart shows the number of outages by climate region. The Northeast, and South have the most outages which could be due to more extreme weather conditions that knock out grids or cause outages due to increased demand for climate-controlling appliances.</p>
+<iframe src="plots/region_outages.html" width="800" height="600" frameborder="0"></iframe>
+
+<h2 id="bivariate-analysis">Bivariate Analysis</h2>
+<p>Below is a heatmap showing the average outage duration by states with at least one outage. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, states like Florida and Louisiana’s outages average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms.</p>
+
+<iframe src="plots/states.html" width="1000" height="700" frameborder="0"></iframe>
+<h2 id="interesting-aggregate">Interesting Aggregate</h2>
+<p>This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What’s surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.</p>
+
+<iframe src="plots/seasons_pivot.html" width="800" height="225"></iframe>
+
+<h1 id="framing-a-prediction-problem">Framing a Prediction Problem</h1>
+<p>To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration.</p>
+
+<h2 id="evaluation-metrics">Evaluation Metrics</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Metric</th>
+      <th style="text-align: left">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Mean Absolute Error(MAE)</strong></td>
+      <td style="text-align: left">The average absolute difference between true outage duration and predicted outage duration. Ensures over and underestimation of outage duration is treated equally when evaluating. The units are hours, making it an easy metric to evaluate.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>R-Squared Score</strong></td>
+      <td style="text-align: left">The proportion of variance in outage duration that the regression model explains. Essentially this tells us how well our model will fit to data with natural variance. The best score is 1.0, but it can be negative if the model is worse.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="original-attempt">Original Attempt</h2>
+<p>Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the <code class="language-plaintext highlighter-rouge">DEMAND.LOSS.MW</code> column and over 300 missing values in the <code class="language-plaintext highlighter-rouge">CUSTOMERS.AFFECTED</code> column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>DEMAND.LOSS.MW</th>
+      <th>CUSTOMERS.AFFECTED</th>
+      <th>ANOMALY.LEVEL</th>
+      <th>TOTAL.SALES</th>
+      <th>CLIMATE.REGION</th>
+      <th>MONTH</th>
+      <th>CAUSE.CATEGORY</th>
+      <th>SEASONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>250</td>
+      <td>250,000</td>
+      <td>1.2</td>
+      <td>5,970,339</td>
+      <td>East North Central</td>
+      <td>7</td>
+      <td>severe weather</td>
+      <td>Summer</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td>300,000</td>
+      <td>0.2</td>
+      <td>5,607,498</td>
+      <td>East North Central</td>
+      <td>6</td>
+      <td>severe weather</td>
+      <td>Summer</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>5,941</td>
+      <td>0.6</td>
+      <td>5,599,486</td>
+      <td>East North Central</td>
+      <td>3</td>
+      <td>intentional attack</td>
+      <td>Spring</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>64,000</td>
+      <td>-0.5</td>
+      <td>7,278,927</td>
+      <td>Central</td>
+      <td>4</td>
+      <td>severe weather</td>
+      <td>Spring</td>
+    </tr>
+    <tr>
+      <td>300</td>
+      <td>63,000</td>
+      <td>-0.5</td>
+      <td>7,278,927</td>
+      <td>Central</td>
+      <td>4</td>
+      <td>severe weather</td>
+      <td>Spring</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regressor models on this data and used 5-fold cross validation to select the best one. The best model was the Random Forest Regressor with a test <strong>MAE</strong> of 45.96 hours and an <strong>R-Squared Score</strong> of -4.46. This means that my model was around 46 hours off for outage duration and does not generalize to unseen data well at all. Given that most outages were less than 100 hours, my model is not fit to predict outage duration at all.</p>
+
+<h2 id="final-attempt">Final Attempt</h2>
+<p>I tried something different with this attempt. I swapped the <code class="language-plaintext highlighter-rouge">DEMAND.LOSS.MW</code> and <code class="language-plaintext highlighter-rouge">CUSTOMERS.AFFECTED</code> columns for the <code class="language-plaintext highlighter-rouge">POPPCT_URBAN</code> and <code class="language-plaintext highlighter-rouge">POPDEN_URBAN</code> columns. Not only were there more rows of data to work with leading to better training, but also introduces a different angle into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have higher outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(<code class="language-plaintext highlighter-rouge">OUTAGE.DURATION</code>) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1265 samples to run regression on. A preview of the input parameter data is below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ANOMALY.LEVEL</th>
+      <th>TOTAL.SALES</th>
+      <th>CLIMATE.REGION</th>
+      <th>CAUSE.CATEGORY</th>
+      <th>POPDEN_URBAN</th>
+      <th>POPPCT_URBAN</th>
+      <th>SEASONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-0.3</td>
+      <td>6,562,520</td>
+      <td>East North Central</td>
+      <td>severe weather</td>
+      <td>2,279</td>
+      <td>73.27</td>
+      <td>Summer</td>
+    </tr>
+    <tr>
+      <td>-1.5</td>
+      <td>5,222,116</td>
+      <td>East North Central</td>
+      <td>severe weather</td>
+      <td>2,279</td>
+      <td>73.27</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <td>-0.1</td>
+      <td>5,787,064</td>
+      <td>East North Central</td>
+      <td>severe weather</td>
+      <td>2,279</td>
+      <td>73.27</td>
+      <td>Summer</td>
+    </tr>
+    <tr>
+      <td>1.2</td>
+      <td>5,970,339</td>
+      <td>East North Central</td>
+      <td>severe weather</td>
+      <td>2,279</td>
+      <td>73.27</td>
+      <td>Summer</td>
+    </tr>
+    <tr>
+      <td>-1.4</td>
+      <td>5,374,150</td>
+      <td>East North Central</td>
+      <td>severe weather</td>
+      <td>2,279</td>
+      <td>73.27</td>
+      <td>Fall</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="baseline-model">Baseline Model</h3>
+<p>I initially trained a linear regression model using all the columns of the dataset. I transformed the categorical variables using a <code class="language-plaintext highlighter-rouge">OneHotEncoder</code>. The baseline model showed significant performance increases with the new parameter columns and transformation of the prediction data. The test MAE of the model was 1.66 log hours and the <strong>R-Squared Score</strong> was 0.32. To get the predicted outage duration in hours, we would raise 2 to our log outage duration. For instance, the test <strong>MAE</strong> in hours was around 3.16 hours, significantly better than before.</p>
+
+<h3 id="feature-generation">Feature Generation</h3>
+<p>To make the final model more robust, I generated the following features.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Feature Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Sales Urban</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">(TOTAL.SALES * POPPCT_URBAN)/100</code>. Weight the consumption of the state by its urban population percentage. States with high total consumption and urban population percentage should expect longer outages. Used a degree 3 <code class="language-plaintext highlighter-rouge">PolynomialFeatures</code> transformer to extrapolate different values and a <code class="language-plaintext highlighter-rouge">QuantileTransformer</code> to normalize the features to help my final model’s performance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Scaled Anomaly Level</strong></td>
+      <td style="text-align: left">Used a <code class="language-plaintext highlighter-rouge">StandardScaler</code> to scale the <code class="language-plaintext highlighter-rouge">ANOMALY.LEVEL</code> column to have a mean of 0 and a standard deviation of 1 to help the final model’s performance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Polynomial Urban Population Density</strong></td>
+      <td style="text-align: left">Used a degree 2 <code class="language-plaintext highlighter-rouge">PolynomialFeatures</code> transformer and <code class="language-plaintext highlighter-rouge">QuantileTransformer</code> on the <code class="language-plaintext highlighter-rouge">POPDEN_URBAN</code> column.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="final-model">Final Model</h3>
+<p>The final model I chose was a Random Forest Regressor whose parameters were tuned using 5-fold cross validation by a <code class="language-plaintext highlighter-rouge">GridSearchCV</code> instance. The best parameters for the search are listed below.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'randomforestregressor__max_depth': 10,
+ 'randomforestregressor__min_samples_split': 8,
+ 'randomforestregressor__n_estimators': 70}
+</code></pre></div></div>
+<p>With a test <strong>MAE</strong> of 1.57 log hours and a <strong>R-Squared Score</strong> of 0.39, the final model predicts log outage duration better and generalizes to unseen data better than the baseline model. Converting the <strong>MAE</strong> to hours, my model is typically only off by 2.97 hours when predicting outage duration, making it a decent candidate for regression imputation on similar data with missing outage duration values. While the test <strong>R-Squared Score</strong> is still less than 0.5, it is interesting to note that the training <strong>R-Squared Score</strong> was 0.69, meaning the final model generalized quite well to the variance of the training data. Given that there were only 948 samples out of the total 1265 available for training(around 75% of the total data), I believe a larger training dataset would improve the model’s validation <strong>R-Squared Score</strong> significantly.</p>
+
+
+      </section>
+
+    </div>
+  </body>
+</html>
