@@ -55,6 +55,8 @@ To further investigate the connection of outage statistics and outage duration, 
 ## Original Attempt
 Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
 
+<div style="margin-left: auto; margin-right:auto; width: 50%">
+
 | DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
 |------------|----------------|------------|---------|----------------|----|-----------------|------|
 | 250            | 250000             | 1.2            | 5970339     | East North Central | 7      | severe weather      | Summer   |
@@ -63,10 +65,14 @@ Below is a preview of the data I used to train my regression models. Due to ther
 | 100            | 64000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
 | 300            | 63000              | -0.5           | 7278927     | Central            | 4      | severe weather      | Spring   |
 
+</div>
+
 I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regressor models on this data and used 5-fold cross validation to select the best one. The best model was the Random Forest Regressor with a test Mean Absolute Error(MAE) of 45.96 hours and an R-Squared Score of -4.46. This means that my model was around 46 hours off for outage duration and does not generalize to unseen data well at all. Given that most outages were less than 100 hours, my model is not fit to predict outage duration at all.
 
 ## Final Attempt
 I tried something different with this attempt. I swapped the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` columns for the `POPPCT_URBAN` and `POPDEN_URBAN` columns. Not only were there more rows of data to work with leading to better training, but also introduces a different angle into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have higher outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1265 samples to run regression on. A preview of the input parameter data is below. 
+
+<div style="margin-left: auto; margin-right:auto; width: 50%">
 
 | OUTAGE.DURATION | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | CAUSE.CATEGORY   | POPDEN_URBAN | POPPCT_URBAN | SEASONS   |
 |----------------:|--------------:|------------:|:-------------------|:-----------------|-------------:|-------------:|:----------|
@@ -75,6 +81,8 @@ I tried something different with this attempt. I swapped the `DEMAND.LOSS.MW` an
 |            42.5 |          -0.1 |     5787064 | East North Central | severe weather   |         2279 |        73.27 | Summer    |
 |              29 |           1.2 |     5970339 | East North Central | severe weather   |         2279 |        73.27 | Summer    |
 |              31 |          -1.4 |     5374150 | East North Central | severe weather   |         2279 |        73.27 | Fall      |
+
+</div>
 
 ### Baseline Model
 I initially trained a linear regression model using all the columns of the dataset. I transformed the categorical variables using a `OneHotEncoder`. The baseline model showed significant performance increases with the new parameter columns and transformation of the prediction data. The test MAE of the model was 1.66 log hours and the R-Squared Score was 0.32. To get the predicted outage duration in hours, we would raise 2 to our log outage duration. For instance, the test MAE in hours was around 3.16 hours, significantly better than before.
