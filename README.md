@@ -55,7 +55,7 @@ To further investigate the connection of outage statistics and outage duration, 
 ## Original Attempt
 Below is a preview of the data I used to train my regression models. Due to there being over 500 missing values in the `DEMAND.LOSS.MW` column and over 300 missing values in the `CUSTOMERS.AFFECTED` column, imputation would not be feasible since it would bias the predictions of my models. Instead, I chose to investigate the relationship between outage duration and the features below on a subset of 490 rows that had no missing values for any column. This guarantees that any connections discovered are found using true values and therefore have more meaning.
 
-<div style="margin-left: auto; margin-right:auto; width: 50%">
+<div style="margin-right:500px; width: 50%;">
 
 | DEMAND.LOSS.MW | CUSTOMERS.AFFECTED | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | MONTH | CAUSE.CATEGORY     | SEASONS |
 |------------|----------------|------------|---------|----------------|----|-----------------|------|
@@ -72,7 +72,7 @@ I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regr
 ## Final Attempt
 I tried something different with this attempt. I swapped the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` columns for the `POPPCT_URBAN` and `POPDEN_URBAN` columns. Not only were there more rows of data to work with leading to better training, but also introduces a different angle into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have higher outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1265 samples to run regression on. A preview of the input parameter data is below. 
 
-<div style="margin-left: auto; margin-right:auto; width: 50%">
+<div style="margin-right:500px; width: 50%;">
 
 | OUTAGE.DURATION | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | CAUSE.CATEGORY   | POPDEN_URBAN | POPPCT_URBAN | SEASONS   |
 |----------------:|--------------:|------------:|:-------------------|:-----------------|-------------:|-------------:|:----------|
