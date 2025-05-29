@@ -65,14 +65,13 @@ I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regr
 ## Final Attempt
 I tried something different with this attempt. I swapped the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` columns for the `POPPCT_URBAN` and `POPDEN_URBAN` columns. Not only were there more rows of data to work with leading to better training, but also introduces a different angle into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have higher outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1265 samples to run regression on. A preview of the input parameter data is below. 
 
-| OUTAGE.DURATION | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | CAUSE.CATEGORY  | POPDEN_URBAN | POPPCT_URBAN | SEASONS |
-|-----------------|---------------|-------------|--------------------|-----------------|--------------|--------------|---------|
-| 6  | 51              | -0.3          | 6,562,520   | East North Central | severe weather  | 2,279        | 73.27        | Summer  |
-| 8  | 50              | -1.5          | 5,222,116   | East North Central | severe weather  | 2,279        | 73.27        | Fall    |
-| 9  | 42.5            | -0.1          | 5,787,064   | East North Central | severe weather  | 2,279        | 73.27        | Summer  |
-| 10 | 29              | 1.2           | 5,970,339   | East North Central | severe weather  | 2,279        | 73.27        | Summer  |
-| 11 | 31              | -1.4          | 5,374,150   | East North Central | severe weather  | 2,279        | 73.27        | Fall    |
-
+| OUTAGE.DURATION | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | CAUSE.CATEGORY   | POPDEN_URBAN | POPPCT_URBAN | SEASONS   |
+|----------------:|--------------:|------------:|:-------------------|:-----------------|-------------:|-------------:|:----------|
+|              51 |          -0.3 |     6562520 | East North Central | severe weather   |         2279 |        73.27 | Summer    |
+|              50 |          -1.5 |     5222116 | East North Central | severe weather   |         2279 |        73.27 | Fall      |
+|            42.5 |          -0.1 |     5787064 | East North Central | severe weather   |         2279 |        73.27 | Summer    |
+|              29 |           1.2 |     5970339 | East North Central | severe weather   |         2279 |        73.27 | Summer    |
+|              31 |          -1.4 |     5374150 | East North Central | severe weather   |         2279 |        73.27 | Fall      |
 
 ### Baseline Model
 I initially trained a linear regression model using all the columns of the dataset. I transformed the categorical variables using a `OneHotEncoder`. The baseline model showed significant performance increases with the new parameter columns and transformation of the prediction data. The test MAE of the model was 1.66 log hours and the R-Squared Score was 0.32. To get the predicted outage duration in hours, we would raise 2 to our log outage duration. For instance, the test MAE in hours was around 3.16 hours, significantly better than before.
