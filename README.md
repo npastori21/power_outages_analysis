@@ -38,6 +38,7 @@ Below is a heatmap showing the average outage duration by states with at least o
  height="700"
  frameborder="0"
  ></iframe>
+ 
 ## Interesting Aggregate
 This pivot table shows the relationship between average outage duration by season and climate region. I originally hypothesised that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's surpising is the fact that the South and Southeast regions have high average outage durations during the fall as well.
 
@@ -92,10 +93,12 @@ To make the final model more robust, I generated the following features.
 | **Polynomial Urban Population Density** | Used a degree 2 `PolynomialFeatures` transformer and `QuantileTransformer` on the `POPDEN_URBAN` column. |
 
 ### Final Model
-The final model I chose was a Random Forest Regressor whose parameters were tuned using 5-fold cross validation by a `GridSearchCV` instance. The best parameters for the search are listed below.
-```
-{'randomforestregressor__max_depth': 10,
- 'randomforestregressor__min_samples_split': 8,
- 'randomforestregressor__n_estimators': 70}
-```
+The final model I chose was a Random Forest Regressor whose parameters were tuned using 5-fold cross validation by a `GridSearchCV` instance. The best parameters for the search and their definitions are below.
+
+| Parameter | Definition |
+|:--------- | :--------- |
+|`max_depth`: 10 | The maximum depth of each tree. |
+|`min_samples_split`: 8 | The minimum number of samples required to split an internal node. |
+|`n_estimators`: 70 | The number of trees in the forest. |
+
 With a test **MAE** of 1.57 log hours and a **R-Squared Score** of 0.39, the final model predicts log outage duration better and generalizes to unseen data better than the baseline model. Converting the **MAE** to hours, my model is typically only off by 2.97 hours when predicting outage duration, making it a decent candidate for regression imputation on similar data with missing outage duration values. While the test **R-Squared Score** is still less than 0.5, it is interesting to note that the training **R-Squared Score** was 0.69, meaning the final model generalized quite well to the variance of the training data. Given that there were only 948 samples out of the total 1265 available for training(around 75% of the total data), I believe a larger training dataset would improve the model's validation **R-Squared Score** significantly.
