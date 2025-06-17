@@ -29,7 +29,8 @@ The bar chart below shows the number of outages by climate region. The Northeast
  height="600"
  frameborder="0"
  ></iframe>
-  
+
+
 ## Bivariate Analysis
 Below is a heatmap showing the average power outage duration by states with at least one outage. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, outages in states like Florida and Louisiana average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms and hurricanes. While West Virginia seems to have the most severe outages, further analysis of its outages shows a small sample size (3) with only one major outage of 288 hours.
 
@@ -39,7 +40,8 @@ Below is a heatmap showing the average power outage duration by states with at l
  height="700"
  frameborder="0"
  ></iframe>
-   
+
+
 ## Interesting Aggregate
 The table below shows the relationship between average outage duration by season and climate region. I originally hypothesized that colder months in colder climates and hotter months in hot climates would have longer outage durations. As you can see, northern regions like the Northeast and Northwest have higher outage durations during the colder seasons of fall and winter. What's interesting is the fact that the South and Southeast regions have high average outage durations during the fall as well. This correlates closely with hurricane season in the southern regions and could be a possible factor of these outages.
 
