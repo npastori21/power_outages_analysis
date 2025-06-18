@@ -32,7 +32,7 @@ The bar chart below shows the number of outages by climate region. The Northeast
 
 
 ## Bivariate Analysis
-Below is a heatmap showing the average power outage duration by states with at least one outage. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, outages in states like Florida and Louisiana average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms and hurricanes. While West Virginia seems to have the most severe outages, further analysis of its outages shows a small sample size (3) with only one major outage of 288 hours.
+Below is a heatmap showing the average power outage duration for states with at least one outage. The map provides more insight into the relationship of states with more extreme weather and the severity of their outages. For example, Wisconsin, Michigan, and New York have average outage durations of over 85 hours, which could be attributed to their harsh winter weather and storms. Additionally, outages in states like Florida and Louisiana average over 65 hours possibly due to their hot summers and exposure to harsh tropical storms and hurricanes. While West Virginia seems to have the most severe outages, further analysis of its outages shows a small sample size (3) with only one major outage of 288 hours.
 
  <iframe
  src="plots/states.html"
@@ -49,7 +49,7 @@ The table below shows the relationship between average outage duration by season
 
 
 # Framing a Prediction Problem
-To further investigate the connection of outage statistics and outage duration, I developed a regression problem between the columns of the outage dataset and outage duration. 
+To further investigate the relationship between outage statistics and outage duration, I formulated a regression problem using various features from the outage dataset to predict outage duration. 
 
 ## Evaluation Metrics
 
@@ -72,7 +72,7 @@ Below is a preview of the data I used to train my regression models. There were 
 I trained Linear Regression, Feed-Forward Neural Network, and Random Forest Regressor models on this data and used 5-fold cross validation to select the best one. The best model was the Random Forest Regressor with a test **MAE** of 45.96 hours and an **R-Squared Score** of -4.46. This indicated that my model was approximately 46 hours off for outage duration and did not generalize to unseen data well at all. Given that most outages were less than 100 hours, my model was not fit to predict outage duration at all.
 
 ## Final Attempt
-I tried something different with this attempt. I replaced the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` column data for the `POPPCT_URBAN` and `POPDEN_URBAN` column data. Not only were there more rows of data to work with leading to better training, but also introduced different insight into the possible influences of outage duration. I predicted that states with both a high urban population density and high urban population would have longer outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1,265 samples to run regression on. A preview of the input parameter data is below. 
+In this iteration, I replaced the `DEMAND.LOSS.MW` and `CUSTOMERS.AFFECTED` features with `POPPCT_URBAN` and `POPDEN_URBAN`. This substitution provided a larger dataset for training, which improved model performance, and introduced a new perspective on how urban population characteristics might influence outage duration. I predicted that states with both a high urban population density and high urban population would have longer outage duration times since the grids have to support a high concentration of people in smaller spaces. Additionally, I transformed my prediction column(`OUTAGE.DURATION`) by taking the log base 2. This transformation helps normalize the right-skewed outage duration data. After dropping rows that had missing values, there were 1,265 samples to run regression on. A preview of the input parameter data is below. 
 
 
 | ANOMALY.LEVEL | TOTAL.SALES | CLIMATE.REGION     | CAUSE.CATEGORY | POPDEN_URBAN | POPPCT_URBAN | SEASONS |
